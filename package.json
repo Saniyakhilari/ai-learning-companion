@@ -1,0 +1,26 @@
+{
+  "name": "ai-learning-companion",
+  "version": "1.0.0",
+  "description": "An AI-powered learning companion that helps students learn from their own notes, identify weak topics, practice with quizzes and flashcards, and prepare for exams.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saniyakhilari/ai-learning-companion.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Saniyakhilari/ai-learning-companion/issues"
+  },
+  "homepage": "https://github.com/Saniyakhilari/ai-learning-companion#readme",
+  "dependencies": {
+    "@google/genai": "^2.27.0",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1"
+  }
+}
