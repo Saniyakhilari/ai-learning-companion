@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Learning Companion</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h2>AI Learning</h2>
+
+        <button onclick="showSection('home')">Home</button>
+        <button onclick="showSection('chat')">AI Chat</button>
+        <button onclick="showSection('quiz')">Quiz</button>
+        <button onclick="showSection('tips')">Study Tips</button>
+        <button onclick="showSection('dashboard')">Dashboard</button>
+
+        <button onclick="toggleTheme()">Dark / Light</button>
+    </aside>
+
+    <main class="content">
+
+        <section id="home" class="section active">
+            <h1>AI Learning Companion</h1>
+            <p>
+                Welcome to your AI Learning Companion website.
+                Learn AI, Computer Science, Maths, Science,
+                and improve your studies with quizzes and tips.
+            </p>
+
+            <div class="cards">
+                <div class="card">
+                    <h3>AI Chat</h3>
+                    <p>Ask educational questions anytime.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Quiz</h3>
+                    <p>Test your knowledge with MCQ quizzes.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Dashboard</h3>
+                    <p>Track your progress and quiz score.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="chat" class="section">
+            <h1>AI Chat Assistant</h1>
+
+            <div id="chatBox" class="chat-box"></div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Ask question...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </section>
+
+        <section id="quiz" class="section">
+            <h1>Quiz Section</h1>
+
+            <div id="quizContainer">
+                <h2 id="question"></h2>
+                <div id="options"></div>
+            </div>
+
+            <div id="result"></div>
+        </section>
+
+        <section id="tips" class="section">
+            <h1>Study Tips</h1>
+
+            <div class="cards">
+                <div class="card">
+                    <h3>Time Management</h3>
+                    <p>Follow a fixed daily study schedule.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Exam Preparation</h3>
+                    <p>Revise important topics every day.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Focus Better</h3>
+                    <p>Keep phone away while studying.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Stay Motivated</h3>
+                    <p>Small progress every day creates success.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="section">
+            <h1>Progress Dashboard</h1>
+
+            <div class="card">
+                <h2>Total Quiz Score</h2>
+                <p id="scoreDisplay">0</p>
+            </div>
+
+            <div class="card">
+                <h2>Completed Quizzes</h2>
+                <p id="quizCount">0</p>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progress"></div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
