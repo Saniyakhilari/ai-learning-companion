@@ -1,126 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Learning Companion</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Companion</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container public-mode">
 
-    <aside class="sidebar">
-        <h2>AI Learning</h2>
-
-        <button onclick="showSection('home')">Home</button>
-        <button onclick="showSection('chat')">AI Chat</button>
-        <button onclick="showSection('quiz')">Quiz</button>
-        <button onclick="showSection('tips')">Study Tips</button>
-        <button onclick="showSection('dashboard')">Dashboard</button>
-
-        <button onclick="toggleTheme()">Dark / Light</button>
-    </aside>
-
-    <main class="content">
-
-        <section id="home" class="section active">
-            <h1>AI Learning Companion</h1>
-            <p>
-                Welcome to your AI Learning Companion website.
-                Learn AI, Computer Science, Maths, Science,
-                and improve your studies with quizzes and tips.
-            </p>
-
-            <div class="cards">
-                <div class="card">
-                    <h3>AI Chat</h3>
-                    <p>Ask educational questions anytime.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Quiz</h3>
-                    <p>Test your knowledge with MCQ quizzes.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Dashboard</h3>
-                    <p>Track your progress and quiz score.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="chat" class="section">
-            <h1>AI Chat Assistant</h1>
-
-            <div id="chatBox" class="chat-box"></div>
-
-            <div class="chat-input">
-                <input type="text" id="userInput" placeholder="Ask question...">
-                <button onclick="sendMessage()">Send</button>
-            </div>
-        </section>
-
-        <section id="quiz" class="section">
-            <h1>Quiz Section</h1>
-
-            <div id="quizContainer">
-                <h2 id="question"></h2>
-                <div id="options"></div>
+        <!-- =========================================================
+             APPLICATION SIDEBAR (Shell Navigation)
+             Visible only in authenticated App Area (Home, Notes, Chat, etc.)
+             Hidden when viewing Public pages (Landing, Login, Signup)
+             ========================================================= -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-logo">🎓</div>
+                <h2>AI Learning</h2>
             </div>
 
-            <div id="result"></div>
-        </section>
+            <div class="sidebar-nav-heading">Main App</div>
+            <button onclick="showSection('home')" data-section="home"><span class="nav-icon">🏠</span> Home</button>
+            <button onclick="showSection('notes')" data-section="notes"><span class="nav-icon">📝</span> Notes</button>
+            <button onclick="showSection('chat')" data-section="chat"><span class="nav-icon">🤖</span> AI Chat</button>
+            <button onclick="showSection('quiz')" data-section="quiz"><span class="nav-icon">🧪</span> Quiz</button>
+            <button onclick="showSection('flashcards')" data-section="flashcards"><span class="nav-icon">🎴</span> Flashcards</button>
+            <button onclick="showSection('homework')" data-section="homework"><span class="nav-icon">📚</span> Homework Helper</button>
+            <button onclick="showSection('exam')" data-section="exam"><span class="nav-icon">⏱️</span> Exam Mode</button>
 
-        <section id="tips" class="section">
-            <h1>Study Tips</h1>
+            <div class="sidebar-nav-heading" style="margin-top: 12px;">Analytics & Account</div>
+            <button onclick="showSection('dashboard')" data-section="dashboard"><span class="nav-icon">📊</span> Dashboard</button>
+            <button onclick="showSection('settings')" data-section="settings"><span class="nav-icon">⚙️</span> Settings</button>
+            <button onclick="showSection('help')" data-section="help"><span class="nav-icon">❓</span> Help</button>
+        </aside>
 
-            <div class="cards">
-                <div class="card">
-                    <h3>Time Management</h3>
-                    <p>Follow a fixed daily study schedule.</p>
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper">
+
+            <!-- Persistent Application Header (App Area) -->
+            <header class="app-header">
+                <div class="header-brand">
+                    <span class="header-brand-icon">🎓</span>
+                    <span>AI Learning Companion</span>
                 </div>
 
-                <div class="card">
-                    <h3>Exam Preparation</h3>
-                    <p>Revise important topics every day.</p>
+                <div class="header-right">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()">
+                        <span>🌓</span> <span>Theme</span>
+                    </button>
+
+                    <!-- Profile Avatar Badge -> Opens Profile Settings -->
+                    <div class="user-profile-badge" onclick="showSection('settings')" title="View Account & Profile Settings">
+                        <div class="avatar-circle">👤</div>
+                        <span class="user-profile-name">Profile</span>
+                    </div>
                 </div>
+            </header>
 
-                <div class="card">
-                    <h3>Focus Better</h3>
-                    <p>Keep phone away while studying.</p>
-                </div>
+            <main class="content">
 
-                <div class="card">
-                    <h3>Stay Motivated</h3>
-                    <p>Small progress every day creates success.</p>
-                </div>
-            </div>
-        </section>
+                <!-- =========================================================
+                     1. PUBLIC LANDING PAGE SECTION
+                     Entry point for visitors. Displays single CTA hero & 
+                     informational non-redirecting feature overview cards.
+                     ========================================================= -->
+                <section id="landing" class="section active">
+                    <nav class="public-navbar">
+                        <div class="public-brand">
+                            <span>🎓</span> AI Learning Companion
+                        </div>
+                        <div class="public-nav-links">
+                            <button class="theme-toggle-btn" onclick="toggleTheme()">🌓 Theme</button>
+                            <button class="btn btn-secondary" onclick="showSection('login')">Log In</button>
+                            <button class="btn btn-primary" onclick="showSection('signup')">Sign Up</button>
+                        </div>
+                    </nav>
 
-        <section id="dashboard" class="section">
-            <h1>Progress Dashboard</h1>
+                    <div class="hero-banner">
+                        <div class="hero-badge">✨ Next-Generation AI Study Assistant</div>
+                        <h1 class="hero-title">Supercharge Your Learning with AI</h1>
+                        <p class="hero-desc">
+                            AI Learning Companion is your all-in-one educational platform. Study key subjects,
+                            summarize notes, practice interactive MCQ quizzes, get instant homework guidance, 
+                            and prepare for exams with your personalized AI tutor.
+                        </p>
+                        <div class="hero-actions">
+                            <!-- Single Clean Hero CTA Button -->
+                            <button class="btn btn-primary" style="padding: 14px 36px; font-size: 1.05rem;" onclick="showSection('signup')">Get Started</button>
+                        </div>
+                    </div>
 
-            <div class="card">
-                <h2>Total Quiz Score</h2>
-                <p id="scoreDisplay">0</p>
-            </div>
+                    <!-- Informational Feature Cards Section (Non-Redirecting) -->
+                    <div style="margin-top: 40px;">
+                        <h2 style="text-align: center; margin-bottom: 24px;">Everything You Need to Succeed</h2>
+                        <div class="cards grid-3">
+                            <div class="card card-info">
+                                <div class="card-icon icon-indigo">📝</div>
+                                <h3>Notes & Summaries</h3>
+                                <p>Organize subject notes, key definitions, and generate instant summaries for fast revision.</p>
+                            </div>
 
-            <div class="card">
-                <h2>Completed Quizzes</h2>
-                <p id="quizCount">0</p>
-            </div>
+                            <div class="card card-info">
+                                <div class="card-icon icon-teal">🤖</div>
+                                <h3>24/7 AI Chat Tutor</h3>
+                                <p>Ask any educational topic or doubt and get instant step-by-step explanations anytime.</p>
+                            </div>
 
-            <div class="progress-bar">
-                <div id="progress"></div>
-            </div>
-        </section>
+                            <div class="card card-info">
+                                <div class="card-icon icon-lavender">🧪</div>
+                                <h3>Interactive Quizzes</h3>
+                                <p>Test your conceptual understanding with topic-wise MCQ quizzes and live score tracking.</p>
+                            </div>
 
-    </main>
-</div>
+                            <div class="card card-info">
+                                <div class="card-icon icon-blue">🎴</div>
+                                <h3>Revision Flashcards</h3>
+                                <p>Master key terms, formulas, and concepts quickly with interactive flashcard decks.</p>
+                            </div>
 
-<script src="script.js"></script>
+                            <div class="card card-info">
+                                <div class="card-icon icon-amber">📚</div>
+                                <h3>Homework Helper</h3>
+                                <p>Get guided step-by-step problem-solving hints and conceptual breakdowns for assignments.</p>
+                            </div>
+
+                            <div class="card card-info">
+                                <div class="card-icon icon-emerald">⏱️</div>
+                                <h3>Exam Prep Mode</h3>
+                                <p>Simulate exam conditions with timed practice tests and revision checklists.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     2. PUBLIC LOGIN SECTION
+                     ========================================================= -->
+                <section id="login" class="section">
+                    <div class="auth-container">
+                        <div class="auth-card">
+                            <div class="auth-header">
+                                <div style="font-size: 2.5rem; margin-bottom: 10px;">🎓</div>
+                                <h2>Welcome Back</h2>
+                                <p>Log in to continue your AI learning journey</p>
+                            </div>
+
+                            <form onsubmit="event.preventDefault(); showSection('home');">
+                                <div class="form-group">
+                                    <label for="loginEmail">Email or Student ID</label>
+                                    <input type="text" id="loginEmail" class="form-control" placeholder="student@example.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="loginPassword">Password</label>
+                                    <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">Log In</button>
+                            </form>
+
+                            <div class="auth-footer">
+                                Don't have an account? <span class="auth-link" onclick="showSection('signup')">Sign Up</span>
+                                <div style="margin-top: 12px;">
+                                    <span class="auth-link" onclick="showSection('landing')">← Back to Landing Page</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     3. PUBLIC SIGN UP SECTION
+                     Includes Name, Email, Class, Preferred Language, Password
+                     ========================================================= -->
+                <section id="signup" class="section">
+                    <div class="auth-container">
+                        <div class="auth-card">
+                            <div class="auth-header">
+                                <div style="font-size: 2.5rem; margin-bottom: 10px;">🚀</div>
+                                <h2>Start Your Learning Journey</h2>
+                                <p>Create your free student account today</p>
+                            </div>
+
+                            <form onsubmit="event.preventDefault(); showSection('home');">
+                                <div class="form-group">
+                                    <label for="signupName">Full Name</label>
+                                    <input type="text" id="signupName" class="form-control" placeholder="Rahul Sharma" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="signupEmail">Email Address</label>
+                                    <input type="email" id="signupEmail" class="form-control" placeholder="rahul@example.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="signupGrade">Class / Grade</label>
+                                    <select id="signupGrade" class="form-control" required>
+                                        <option value="" disabled selected>Select Grade</option>
+                                        <option value="Class 9">Class 9</option>
+                                        <option value="Class 10">Class 10</option>
+                                        <option value="Class 11">Class 11</option>
+                                        <option value="Class 12">Class 12</option>
+                                        <option value="Undergraduate">Undergraduate / College</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="signupLanguage">Preferred Language (Default)</label>
+                                    <select id="signupLanguage" class="form-control" required>
+                                        <option value="English" selected>English</option>
+                                        <option value="Hindi">Hindi</option>
+                                        <option value="Marathi">Marathi</option>
+                                        <option value="Hinglish">Hinglish</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="signupPassword">Password</label>
+                                    <input type="password" id="signupPassword" class="form-control" placeholder="Create password" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">Create Account & Continue</button>
+                            </form>
+
+                            <div class="auth-footer">
+                                Already have an account? <span class="auth-link" onclick="showSection('login')">Log In</span>
+                                <div style="margin-top: 12px;">
+                                    <span class="auth-link" onclick="showSection('landing')">← Back to Landing Page</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     4. APPLICATION HOME SECTION
+                     Functional launchpad with interactive section shortcuts.
+                     ========================================================= -->
+                <section id="home" class="section">
+                    <div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(20, 184, 166, 0.15)); border-color: rgba(99, 102, 241, 0.3); margin-bottom: 24px;">
+                        <h1 style="margin-bottom: 6px;">Welcome Back, Student! 👋</h1>
+                        <p style="font-size: 1.05rem; color: var(--text-primary);">
+                            Ready to supercharge your studies today? Select a tool below or ask your AI Chat assistant for help.
+                        </p>
+                    </div>
+
+                    <h2>Quick Actions</h2>
+                    <div class="cards" style="margin-bottom: 36px;">
+                        <div class="card card-interactive" onclick="showSection('notes')">
+                            <div class="card-icon icon-indigo">📝</div>
+                            <h3>Study Notes</h3>
+                            <p>Organize subject notes and revision summaries.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('chat')">
+                            <div class="card-icon icon-teal">🤖</div>
+                            <h3>AI Chat Assistant</h3>
+                            <p>Ask educational questions and get instant step-by-step answers.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('quiz')">
+                            <div class="card-icon icon-lavender">🧪</div>
+                            <h3>Take a Practice Quiz</h3>
+                            <p>Test your knowledge with instant scoring and feedback.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('flashcards')">
+                            <div class="card-icon icon-blue">🎴</div>
+                            <h3>Revision Flashcards</h3>
+                            <p>Review key terms and definitions before exams.</p>
+                        </div>
+                    </div>
+
+                    <h2>Explore All Learning Capabilities</h2>
+                    <p class="section-subtitle">Click any capability below to jump directly into that study section.</p>
+
+                    <div class="cards grid-2">
+                        <div class="card card-interactive" onclick="showSection('notes')">
+                            <div class="card-icon icon-indigo">📝</div>
+                            <h3>Notes & Summaries</h3>
+                            <p>Organize subject topics cleanly, create structured study outlines, and generate quick revision guides.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('chat')">
+                            <div class="card-icon icon-teal">🤖</div>
+                            <h3>AI Chat Tutor</h3>
+                            <p>24/7 intelligent answers for Computer Science, AI, Science, and Mathematics questions.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('quiz')">
+                            <div class="card-icon icon-lavender">🧪</div>
+                            <h3>MCQ Quiz Engine</h3>
+                            <p>Evaluate your strengths and weaknesses through practice quizzes and automated score tracking.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('flashcards')">
+                            <div class="card-icon icon-blue">🎴</div>
+                            <h3>Smart Flashcards</h3>
+                            <p>Rapidly memorize formulas, definitions, and core concepts with interactive flip cards.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('homework')">
+                            <div class="card-icon icon-amber">📚</div>
+                            <h3>Homework Helper</h3>
+                            <p>Get guided step-by-step conceptual hints to solve tough homework problems independently.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('exam')">
+                            <div class="card-icon icon-emerald">⏱️</div>
+                            <h3>Exam Mode Readiness</h3>
+                            <p>Simulate exam countdown timer conditions and track your revision subject checklist.</p>
+                        </div>
+
+                        <div class="card card-interactive" onclick="showSection('dashboard')">
+                            <div class="card-icon icon-indigo">📊</div>
+                            <h3>Progress Dashboard</h3>
+                            <p>Track your quiz performance metrics, completed tests, and knowledge mastery stats.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     5. APPLICATION NOTES SECTION
+                     ========================================================= -->
+                <section id="notes" class="section">
+                    <h1>Study Notes & Summaries</h1>
+                    <p class="section-subtitle">Organize your study topics, revision summaries, and subject guides.</p>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>Create New Study Note</h3>
+                            <div class="form-group" style="margin-top: 16px;">
+                                <label for="noteTitle">Topic Title</label>
+                                <input type="text" id="noteTitle" class="form-control" placeholder="e.g. OSI Model 7 Layers Breakdown">
+                            </div>
+                            <div class="form-group">
+                                <label for="noteContent">Note Content / AI Summary</label>
+                                <textarea id="noteContent" class="form-control" rows="5" placeholder="Type your revision notes here..."></textarea>
+                            </div>
+                            <button class="btn btn-primary" onclick="alert('Note draft saved locally!')">Save Note</button>
+                        </div>
+
+                        <div class="card">
+                            <h3>Recent Revision Notes</h3>
+                            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+                                <div style="padding: 12px; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                                    <strong>Computer Networking — OSI Model</strong>
+                                    <p style="font-size: 0.85rem; margin-top: 4px;">7 Layers: Physical, Data Link, Network, Transport, Session, Presentation, Application.</p>
+                                </div>
+                                <div style="padding: 12px; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                                    <strong>AI & Machine Learning Concepts</strong>
+                                    <p style="font-size: 0.85rem; margin-top: 4px;">ML is a subset of AI that focuses on learning from data to identify patterns.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     6. APPLICATION AI CHAT SECTION
+                     ========================================================= -->
+                <section id="chat" class="section">
+                    <h1>AI Chat Assistant</h1>
+                    <p class="section-subtitle">Ask any educational question and get clear, instant explanations.</p>
+
+                    <div id="chatBox" class="chat-box"></div>
+
+                    <div class="chat-input">
+                        <input type="text" id="userInput" class="form-control" placeholder="Ask a question (e.g. what is cpu, explain osi model)...">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     7. APPLICATION QUIZ SECTION
+                     ========================================================= -->
+                <section id="quiz" class="section">
+                    <h1>Interactive Quiz Section</h1>
+                    <p class="section-subtitle">Test your knowledge with multiple choice questions.</p>
+
+                    <div id="quizContainer" class="card">
+                        <h2 id="question"></h2>
+                        <div id="options"></div>
+                    </div>
+
+                    <div id="result"></div>
+                </section>
+
+                <!-- =========================================================
+                     8. APPLICATION FLASHCARDS SECTION
+                     ========================================================= -->
+                <section id="flashcards" class="section">
+                    <h1>Revision Flashcards</h1>
+                    <p class="section-subtitle">Master key terms and definitions with interactive card flips.</p>
+
+                    <div class="flashcard-container">
+                        <div class="flashcard" id="flashcard" onclick="flipFlashcard()">
+                            <div class="flashcard-category" id="fcCategory">Computer Science</div>
+                            <div class="flashcard-text" id="fcText">Click to reveal answer...</div>
+                        </div>
+
+                        <div class="flashcard-controls">
+                            <button class="btn btn-secondary" onclick="prevFlashcard()">← Previous</button>
+                            <button class="btn btn-primary" onclick="flipFlashcard()">Flip Card 🔄</button>
+                            <button class="btn btn-secondary" onclick="nextFlashcard()">Next →</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     9. APPLICATION HOMEWORK HELPER SECTION
+                     ========================================================= -->
+                <section id="homework" class="section">
+                    <h1>Homework Helper</h1>
+                    <p class="section-subtitle">Get step-by-step guidance and conceptual hints for your assignments.</p>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>Ask a Homework Question</h3>
+                            <div class="form-group" style="margin-top: 14px;">
+                                <label for="hwSubject">Subject</label>
+                                <select id="hwSubject" class="form-control">
+                                    <option value="Computer Science">Computer Science / AI</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Physics">Physics / Science</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="hwQuestion">Problem Description</label>
+                                <textarea id="hwQuestion" class="form-control" rows="4" placeholder="Paste your question or problem prompt here..."></textarea>
+                            </div>
+                            <button class="btn btn-primary" onclick="solveHomework()">Get Step-by-Step Guidance</button>
+                        </div>
+
+                        <div class="card">
+                            <h3>Guided Hint & Explanation</h3>
+                            <div id="hwResult" style="padding: 16px; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius-md); min-height: 180px;">
+                                <p style="color: var(--text-muted);">Enter a question on the left to receive a structured breakdown and solution steps.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     10. APPLICATION EXAM MODE SECTION
+                     ========================================================= -->
+                <section id="exam" class="section">
+                    <h1>Exam Mode Readiness</h1>
+                    <p class="section-subtitle">Practice under timed exam conditions and track your revision checklists.</p>
+
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3>⏱️ Simulated Exam Timer</h3>
+                            <div style="text-align: center; padding: 24px 0;">
+                                <div id="examTimerDisplay" style="font-size: 3rem; font-weight: 900; color: var(--accent-indigo);">10:00</div>
+                                <p style="margin-bottom: 20px;">10-Minute Focus Sprint</p>
+                                <div style="display: flex; justify-content: center; gap: 12px;">
+                                    <button class="btn btn-primary" onclick="startExamTimer()">Start Timer</button>
+                                    <button class="btn btn-secondary" onclick="resetExamTimer()">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>📋 Exam Revision Checklist</h3>
+                            <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+                                <li style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" checked id="chk1"> <label for="chk1">Review CPU & Memory Architecture</label>
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" checked id="chk2"> <label for="chk2">Practice OSI 7-Layer Questions</label>
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="chk3"> <label for="chk3">Solve Probability & Bayes Theorem Quiz</label>
+                                </li>
+                                <li style="display: flex; align-items: center; gap: 10px;">
+                                    <input type="checkbox" id="chk4"> <label for="chk4">Revise AI vs Machine Learning Definitions</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     11. APPLICATION DASHBOARD SECTION
+                     ========================================================= -->
+                <section id="dashboard" class="section">
+                    <h1>Progress Dashboard</h1>
+                    <p class="section-subtitle">Track your test scores, completed quiz sessions, and learning growth.</p>
+
+                    <div class="cards grid-2">
+                        <div class="card">
+                            <h2>Total Quiz Score</h2>
+                            <p id="scoreDisplay" style="font-size: 2.5rem; font-weight: 800; color: var(--accent-emerald); margin-top: 8px;">0</p>
+                        </div>
+
+                        <div class="card">
+                            <h2>Completed Quizzes</h2>
+                            <p id="quizCount" style="font-size: 2.5rem; font-weight: 800; color: var(--accent-indigo); margin-top: 8px;">0</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 24px;">
+                        <h3>Overall Knowledge Mastery</h3>
+                        <div class="progress-bar">
+                            <div id="progress"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     12. APPLICATION SETTINGS & LANGUAGE PREFERENCES SECTION
+                     Includes Profile details & App / AI Language configuration
+                     ========================================================= -->
+                <section id="settings" class="section">
+                    <h1>Student Settings & Preferences</h1>
+                    <p class="section-subtitle">Manage your profile details and language preferences.</p>
+
+                    <div class="grid-2">
+                        <!-- Profile Card -->
+                        <form class="card" style="margin-bottom: 0;">
+                            <h3 style="margin-bottom: 16px;">👤 Profile Details</h3>
+                            <div class="form-group">
+                                <label for="studentName">Student Name</label>
+                                <input type="text" id="studentName" class="form-control" placeholder="Enter full name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studentClass">Class / Grade</label>
+                                <select id="studentClass" class="form-control" required>
+                                    <option value="" disabled selected>Select Class / Grade</option>
+                                    <option value="Class 6">Class 6</option>
+                                    <option value="Class 7">Class 7</option>
+                                    <option value="Class 8">Class 8</option>
+                                    <option value="Class 9">Class 9</option>
+                                    <option value="Class 10">Class 10</option>
+                                    <option value="Class 11">Class 11</option>
+                                    <option value="Class 12">Class 12</option>
+                                    <option value="Undergraduate">Undergraduate / College</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studentBoard">Board</label>
+                                <select id="studentBoard" class="form-control" required>
+                                    <option value="" disabled selected>Select Board</option>
+                                    <option value="CBSE">CBSE</option>
+                                    <option value="ICSE">ICSE</option>
+                                    <option value="State Board">State Board</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="examGoal">Main Exam Goal</label>
+                                <input type="text" id="examGoal" class="form-control" placeholder="e.g. CBSE Class 10 Board Exams, JEE, NEET" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Save Profile</button>
+                        </form>
+
+                        <!-- Language Preferences Card -->
+                        <div class="card">
+                            <h3 style="margin-bottom: 16px;">🌐 Language Preferences</h3>
+                            <p style="font-size: 0.88rem; margin-bottom: 20px;">
+                                Configure your default interface language and AI tutor response language.
+                            </p>
+
+                            <div class="form-group">
+                                <label for="appLanguage">Application Interface Language</label>
+                                <select id="appLanguage" class="form-control">
+                                    <option value="English" selected>English</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="Marathi">Marathi</option>
+                                    <option value="Hinglish">Hinglish</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="aiResponseLanguage">AI Tutor Response Language</label>
+                                <select id="aiResponseLanguage" class="form-control">
+                                    <option value="Auto Detect" selected>Auto Detect (Flexible)</option>
+                                    <option value="English">English</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="Marathi">Marathi</option>
+                                    <option value="Hinglish">Hinglish</option>
+                                </select>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">
+                                    Auto Detect allows the AI to respond in your question's language (e.g., Hinglish or mixed terms).
+                                </p>
+                            </div>
+
+                            <button class="btn btn-secondary" onclick="alert('Language preferences updated!')">Update Language Settings</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     13. APPLICATION HELP SECTION
+                     ========================================================= -->
+                <section id="help" class="section">
+                    <h1>Help & Support Guide</h1>
+                    <p class="section-subtitle">Frequently asked questions and instructions for AI Learning Companion.</p>
+
+                    <div class="cards grid-2">
+                        <div class="card">
+                            <h3>🤖 How does the AI Chat work?</h3>
+                            <p>Type your question in the chat box. The assistant searches its educational knowledge base to provide clear explanations for CS, AI, Math, and Science topics.</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>🌐 Can I ask questions in Hindi or Hinglish?</h3>
+                            <p>Yes! AI Tutor supports mixed-language queries. You can configure your AI response language preference in Settings.</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>🧪 How are Quiz Scores tracked?</h3>
+                            <p>Every time you complete a quiz session, your score is logged automatically and updated on your Progress Dashboard.</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>⚙️ How do I update my profile or language settings?</h3>
+                            <p>Go to Settings from the sidebar or click your user avatar in the top header to edit your profile and language options.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
